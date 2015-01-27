@@ -1,0 +1,109 @@
+<program> -> <function> SEP <program> | E
+<function> ->INIT LP RP <SEPA> FS SEP <functionBody> FE
+<function> -> <dataType> ID LP <paramList> RP <SEPA> FS SEP <functionBody> FE
+<paramList> -> <dataType> ID <paramList2> | E
+<paramList2> -> SMC <dataType> ID <paramList2> | E
+<paramListN> -> ID <paramListN2> | INTCONST <paramListN2> | FLOATCONST <paramListN2> | E
+<paramListN2> -> SMC <paramListN3> | E
+<paramListN3> -> ID <paramListN2> | INTCONST <paramListN2> | FLOATCONST <paramListN2> E
+<dataType> -> INT
+<dataType> -> FLOAT
+<dataType> -> OBJECT
+<dataType> -> VECTOR
+<dataType> -> LINEAR
+<functionBody> -> <stnt> SEP <functionBody> | E
+<stnt> -> <declStnt> <C>
+<stnt> -> <assignPlusFunct> <C>
+<stnt> -> <condStnt> <C>
+<stnt> -> <loop> <C>
+<stnt> -> <returnCall> <C>
+<stnt> -> <outStnt> <C>
+<stnt> -> <inStnt> <C>
+<stnt> -> <C>
+<C> -> <comment> | E
+<comment> -> COM STRING
+<furID> -> SMC ID <furID> | E
+<declStnt> -> OBJECT ID <o>
+<o> -> <o2> <objAssign>
+<o> -> <furID>
+<o2> -> LS <intOrFloatVal> RS | E
+<objAssign> -> ASSIGN <objVecVal>
+<declStnt> -> LINEAR ID <l>
+<l> -> <l2> <linAssign>
+<l> -> <furID>
+<l2> -> LS <intOrFloatVal> RS | E
+<linAssign> -> ASSIGN <linVal>
+<declStnt> -> VECTOR ID <v>
+<v> -> <v2> <vectorAssign>
+<v> -> <furID>
+<v2> -> LS <intOrFloatVal> RS | E
+<vectorAssign> -> ASSIGN <ObjVecVal>
+<declStnt> -> FLOAT ID <f>
+<f> -> <f2> <floatAssign>
+<f> -> <furID>
+<f2> -> LS <intOrFloatVal> RS | E
+<floatAssign> -> ASSIGN <intOrFloatVal>
+<declStnt> -> INT ID <i>
+<i> -> <i2> <intAssign>
+<i> -> <furID>
+<i2> -> LS <intOrFloatVal> RS | E
+<intAssign> -> ASSIGN <intOrFloatVal>
+<assignPlusFunct> -> <ID> <rest>
+<ID> -> ID <ARR>
+<ARR> -> LS <intOrFloatVal> RS | E
+<rest> -> ASSIGN <assign>
+<rest> -> LP <paramlistN> RP
+<assign> -> <objVecVal>
+<assign> -> <intorFloatVal> <tolinVal>
+<err> -> ID <err2>
+<err2> -> <funcCall> | E
+<objVecVal> -> LC <vecAss> <objOrVec>
+<objOrVec> -> SMC <vecAss> SMC <vecAss> SMC <intOrFloatVal> RC
+<objOrVec> -> RC LIN LC <vecAss> RC
+<vecAss> -> <intorFloatVal> COMMA <intorFloatVal>
+<tolinVal> -> LIN <objVecVal> | E
+<intorfloatVal> -> <intorfloatexpr>
+<linVal> -> <err> <lina> | <objVecVal>
+<lina> -> LIN <objVecVal> <lina> | E
+<condStnt> -> FS <functionBody> FE WHEN LP <condCheck> RP
+<condCheck> -> <not> <woCheck> <condCheck2>
+<woCheck> -> LP <furCond> RP
+<furCond> -> <intorFloatVal> <condOp> <intorFloatVal>
+<condCheck2> -> <condcon> <condCheck> | E
+<not> -> NOT | E
+<condOp> -> EC
+<condOp> -> LT
+<condOp> -> GT
+<condOp> -> LTE
+<condOp> -> GTE
+<condcon> -> AND
+<condcon> -> OR
+<loop> -> LOOP LP <condCheck> RP <SEPA> FS SEP <functionBody> FE
+<funcCall> -> LP <paramlistN> RP
+<returnCall> -> RETURN <val>
+<val> -> <objVecVal>
+<val> -> <intorFloatVal>
+<outStnt> -> <out>
+<outStnt> -> <outall>
+<out> -> OUT LP <varList> RP AT LP <condCheck> RP
+<varList> -> ID
+<varList> -> TIME
+<outall> -> OUTA LP <objectList> RP AT LP <condCheck> RP
+<objectList> -> <err>
+<inStnt> -> <inFloat> LP ID RP
+<inStnt> -> <inInt> LP ID RP
+<inFloat> -> INF
+<inInt> -> ININ
+<intOrfloatexpr> -> <intOrfloatmulexpr> <intOrfloatM>
+<intOrfloatM> -> <addOP> <intOrfloatexpr> | E
+<addOP> -> ADD
+<addOP> -> SUB
+<intOrfloatmulexpr> -> <intOrfloatfactor> <intOrfloatF>
+<intOrfloatF> -> <mulOP><intOrfloatmulexpr> | E
+<mulOP> -> MUL
+<mulOP> -> DIV
+<intOrfloatfactor> ->LP <intorfloatexpr> RP
+<intOrfloatfactor> -> <err>
+<intOrfloatfactor> -> FLOATCONST | INTCONST
+<intOrfloatfactor> -> TIME
+<SEPA> -> SEP <SEPA> | E

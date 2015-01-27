@@ -1,0 +1,15 @@
+int rmc(int a1;int a2)
+<<
+int i1;i2
+i1 => 2*3
+i2 => i1+3 
+return i1
+>>
+_init_()
+<<
+object o1;o2
+int a1;a2
+a1 => o1.pos.xpos
+a2 => 4
+a2 => rmc(a1;a2)
+>>
